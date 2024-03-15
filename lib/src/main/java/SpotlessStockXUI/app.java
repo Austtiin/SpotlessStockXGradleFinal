@@ -8,20 +8,22 @@
 
 package SpotlessStockXUI;
 import javax.swing.*;
-import logger.loggerStockX;
+
+import logger.LoggerStockX;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.RoundRectangle2D;
+import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
 
 
 public class app {
 	//Variables
 	private JFrame frame;
-	loggerStockX logger = new loggerStockX();
+	LoggerStockX logger = new LoggerStockX();
 	//Main method to run the application
 	public static void main(String[] args) {
 
@@ -34,7 +36,7 @@ public class app {
 				window.frame.setVisible(true);
 
 			} catch (Exception e) { //Catch any exceptions
-				loggerStockX.logger.info("Exception: " + e);
+				Logger.logger.info("Exception: " + e);
 				loggerStockX.loggerBAD(Level.ERROR, "Exception: ", e);
 			}
 		});

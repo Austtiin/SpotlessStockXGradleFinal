@@ -1,0 +1,18 @@
+Mar 15, 2024 12:28:21 AM mainApp.SpotlessStockXIS run
+INFO: SpotlessStockXIS Application Started.
+Mar 15, 2024 12:28:21 AM mainApp.SpotlessStockXIS inventoryManager
+INFO: SpotlessStockXIS Menu Accessed.
+Mar 15, 2024 12:28:24 AM mainApp.SpotlessStockXIS stockCheck
+INFO: Checking Stock Levels...
+Mar 15, 2024 12:28:24 AM mainApp.DatabaseConnector connectToDatabase
+SEVERE: Error connecting to the DB
+java.sql.SQLException: No suitable driver found for jdbc:mysql://myservice-stockx-rasmussen-stockx-ajs.a.aivencloud.com:17817/defaultdb
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:706)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:229)
+	at mainApp.DatabaseConnector.connectToDatabase(DatabaseConnector.java:25)
+	at mainApp.StockShow.showStock(StockShow.java:21)
+	at mainApp.SpotlessStockXIS.stockCheck(SpotlessStockXIS.java:225)
+	at mainApp.SpotlessStockXIS.inventoryManager(SpotlessStockXIS.java:86)
+	at mainApp.SpotlessStockXIS.run(SpotlessStockXIS.java:48)
+	at mainApp.Main.main(Main.java:9)
+
