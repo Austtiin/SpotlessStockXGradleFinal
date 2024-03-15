@@ -36,8 +36,10 @@ public class app {
 				window.frame.setVisible(true);
 
 			} catch (Exception e) { //Catch any exceptions
-				Logger.logger.info("Exception: " + e);
-				loggerStockX.loggerBAD(Level.ERROR, "Exception: ", e);
+				
+				
+				 
+				 LoggerStockX.logger.info("Exception:" + e.getMessage());
 			}
 		});
 	}
@@ -138,3 +140,4 @@ public class app {
 		button.setContentAreaFilled(false);
 		return button;
 	}
+}
