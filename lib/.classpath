@@ -183,11 +183,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Austin/Downloads/poi-bin-5.2.3-20220909/poi-bin-5.2.3/auxiliary/batik-script-1.14.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/Austin/Downloads/poi-bin-5.2.3-20220909/poi-bin-5.2.3/auxiliary/batik-shared-resources-1.14.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
@@ -269,6 +264,11 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/Austin/Downloads/poi-bin-5.2.3-20220909/poi-bin-5.2.3/auxiliary/xmlsec-3.0.0.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Austin/Downloads/poi-bin-5.2.3-20220909/poi-bin-5.2.3/auxiliary/batik-script-1.14.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>

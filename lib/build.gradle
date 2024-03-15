@@ -25,6 +25,9 @@ dependencies {
 
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation 'com.google.guava:guava:31.1-jre'
+    
+    broken 'org.apache.xmlgraphics:batik-script:1.11'
+    broken 'xalan:xalan:2.7.2'
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -38,3 +41,39 @@ tasks.named('test') {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
 }
+
+tasks.addDependenciesModuleInfo.doFirst {
+    fixJar('batik-script', 'org.apache.batik.script.InterpreterFactory', 'org.apache.batik.bridge.RhinoInterpreterFactory')
+    fixJar('xalan', 'org.apache.xalan.extensions.bsf.BSFManager', 'org.apache.bsf.BSFManager')
+    // ... additional calls to fixJar are probably needed
+}
+
+def fixJar(String jarPrefix, String service, String brokenImpl) {
+    configurations.broken.files.findAll { f ->
+        f.name.startsWith jarPrefix
+    }.each { brokenJar ->
+        def destDir = file("$buildDir/broken")
+        delete destDir
+        mkdir destDir
+
+        def zt = zipTree(brokenJar)
+        def expandedPath = zt.asFileTree.tree.mirror.dir.path
+        def files = zt.files.each { f ->
+            def pathInJar = (f.path - expandedPath).substring(1)
+            def destFilePath = destDir.toPath().resolve(pathInJar)
+            mkdir destFilePath.parent
+            java.nio.file.Files.copy(f.toPath(), destFilePath)
+        }
+        def svcFile = destDir.toPath().resolve("META-INF/services/$service").toFile()
+        def newText = svcFile.text.replace(brokenImpl, '')
+        svcFile.text = newText
+
+        delete brokenJar
+        def jarExec = java.util.spi.ToolProvider.findFirst( "jar" ).get()
+        def result = jarExec.run(System.out, System.err,
+            '-cf', "$brokenJar.path", '-C', destDir.path, '.')
+        println "Fixed $brokenJar"
+    }
+}
+
+
