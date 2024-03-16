@@ -96,7 +96,7 @@ public class ViewSites {
 		}
 
 		public void UpdateSite() {
-			//Display the current delivery sites
+			//Display the currnt delivery sites
 			    System.out.println("Current Delivery Sites:");
 			    DisplaySites();
 

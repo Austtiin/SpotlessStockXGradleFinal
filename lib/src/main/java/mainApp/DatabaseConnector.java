@@ -1,3 +1,4 @@
+//Purpose: Connect to the database and add an item to it.
 package mainApp;
 
 import java.sql.Connection;

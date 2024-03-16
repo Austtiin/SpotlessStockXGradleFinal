@@ -1,3 +1,4 @@
+//Purpose: To connect to the database and retrieve the data from the inventory table.
 package mainApp;
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -1,0 +1,5 @@
+***** BOL REPORT *****
+
+Customer Name: Smith Manufacturing
+Address: 321 Maple St, Smalltown, USA
+Phone Number: 555-111-2222

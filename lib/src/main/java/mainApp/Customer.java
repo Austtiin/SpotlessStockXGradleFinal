@@ -6,7 +6,6 @@ public class Customer {
     private String phoneNumber;
 
     public Customer() {
-        // Default constructor
     }
 
     public Customer(String name, String address, String phoneNumber) {

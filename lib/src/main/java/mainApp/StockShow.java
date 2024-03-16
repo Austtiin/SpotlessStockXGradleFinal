@@ -20,7 +20,7 @@ public class StockShow {
     public void showStock() {
         try (final Connection connection = dbConn.connectToDatabase()) {
             if (connection != null) {
-            	// SQL query to show the stock of the chemicals in the inventory
+            	// SQL quer to show the stock of the chemicals in the inventory
                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM CurrentInventory");
                 ResultSet resultSet = statement.executeQuery();
 
