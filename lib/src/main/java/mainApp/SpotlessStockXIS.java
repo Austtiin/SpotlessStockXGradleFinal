@@ -4,6 +4,8 @@
 
 package mainApp;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -144,6 +146,7 @@ public class SpotlessStockXIS {
                             System.out.println("Checking Current Inventory...");
                             LoggerStockX.logger.info("Checking Current Inventory...");
                             addItem.ShowCurrent();
+                            //TODO: MARKER
                             break;
                         case 2:
                             System.out.println("Please Type the Chemical Name:");
@@ -399,4 +402,54 @@ public class SpotlessStockXIS {
 
     }
 
-}
+    public String fetchHomePanelInformation(int choice) {
+        StringBuilder information = new StringBuilder();
+        
+        switch (choice) {
+            case 1:
+                // Show information about the current inventory
+                information.append(fetchCurrentInventoryInformation());
+                break;
+            case 2:
+                // Display a form or table for adding a new item
+                information.append("Enter details to add a new item:\n");
+                information.append("Chemical Name: [Input Field]\n");
+                information.append("Container Size: [Input Field]\n");
+                information.append("Current Inventory: [Input Field]\n");
+                // Add more input fields as needed
+                break;
+            default:
+                information.append("Invalid choice. Please select option 1 or 2.\n");
+                break;
+        }
+        
+        return information.toString();
+    }
+
+    public String fetchCurrentInventoryInformation() {
+        //TODO: MARKER
+        // Logic to fetch and format inventory information
+        StringBuilder inventoryInfo = new StringBuilder();
+
+        // Redirect System.out to capture console output
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PrintStream ps = new PrintStream(baos);
+        PrintStream oldOut = System.out;
+        System.setOut(ps);
+
+        // Call the method to print current inventory (assuming it prints to System.out)
+        addItem.ShowCurrent();
+
+        // Restore original System.out
+        System.out.flush();
+        System.setOut(oldOut);
+
+        // Append captured output to StringBuilder
+        inventoryInfo.append("Current Inventory Information:\n");
+        inventoryInfo.append(baos.toString());
+
+        return inventoryInfo.toString();
+    }
+
+
+    }
