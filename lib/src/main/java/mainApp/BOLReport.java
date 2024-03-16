@@ -1,14 +1,9 @@
 //purpose: This file contains the BOLReport class which is responsible for exporting a Bill of Lading (BOL) report for a given site.
-
 package mainApp;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
-import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class BOLReport {
     private ViewSites viewSites;
@@ -21,45 +16,41 @@ public class BOLReport {
     }
 
     public void export() {
-        try {
-            // Prompt user to select a site
-            viewSites.DisplaySites();
+        // Prompt user to select a site
+        viewSites.DisplaySites();
 
-            // Load Excel template workbook
-            FileInputStream inputStream = new FileInputStream(new File("AppResources/BOL Template.xlsx"));
-            Workbook workbook = new XSSFWorkbook(inputStream);
-            Sheet sheet = workbook.getSheetAt(0);
+        // Get site ID from user input
+        System.out.println("Enter the site ID for which you want to generate the BOL report: ");
+        String siteId = scanner.next();
 
-            // Get site ID from user input
-            System.out.println("Enter the site ID for which you want to generate the BOL report: ");
-            String siteId = scanner.next();
+        if (viewSites.siteExists(siteId)) {
+            // Counter for generating unique file names
+            String textFileName = "bol_report_" + counter + "_" + siteId + ".txt";
+            counter++;
 
-            
-            if (viewSites.siteExists(siteId)) {
-            	//Counter for generating unique file names
-                String fileName = "bol_report_" + counter + "_" + siteId + ".xlsx";
-                counter++;
+            try {
+                // Create FileWriter to write data to file
+                FileWriter writer = new FileWriter(textFileName);
 
-                // Create instance of a Customer object and retrieve its details
+                // Retrieve customer details
                 Customer customer = viewSites.getCustomerDetails(siteId);
 
-                // Populate Excel template with customer details
-                Row row = sheet.getRow(11);
-                row.getCell(1).setCellValue(customer.getName());
-                row.getCell(1).setCellValue(customer.getAddress());
-                row.getCell(1).setCellValue(customer.getPhoneNumber());
+                // Write BOL report content to file with basic formatting
+                writer.write("***** BOL REPORT *****\n\n");
+                writer.write("Customer Name: " + customer.getName() + "\n");
+                writer.write("Address: " + customer.getAddress() + "\n");
+                writer.write("Phone Number: " + customer.getPhoneNumber() + "\n");
 
-                //Save the updated workbook
-                FileOutputStream outputStream = new FileOutputStream(new File(fileName));
-                workbook.write(outputStream);
-                outputStream.close();
+                // Close the writer
+                writer.close();
 
-                System.out.println("BOL report generated successfully for site ID: " + siteId);
-            } else {
-                System.out.println("Error: Site ID not found.");
+                System.out.println("BOL report text file generated successfully for site ID: " + siteId);
+            } catch (IOException e) {
+                System.out.println("Error: Failed to generate BOL report.");
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            System.out.println("Error exporting BOL report: " + e.getMessage());
+        } else {
+            System.out.println("Error: Site ID not found.");
         }
     }
 }
