@@ -389,14 +389,12 @@ public class SpotlessStockXIS {
     private void searchInventory() {
         LoggerStockX.logger.info("==== Search Inventory ====");
         
+		if (ItemDetails.searchItem()) {
+			System.out.println("Item found");
+		} else {
+			System.out.println("Item not found");
+		}
         
-        try {
-            System.out.println("Enter the item name to search:");
-            String itemName = scanner.nextLine().trim();
-            ItemDetails.DetailsItems(itemName);
-            } catch (IllegalStateException | NoSuchElementException e) {
-                 LoggerStockX.logger.log(Level.SEVERE, "Error reading input: " + e.getMessage(), e);
-            }
         
 
     }

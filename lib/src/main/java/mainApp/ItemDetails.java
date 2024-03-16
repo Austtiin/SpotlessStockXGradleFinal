@@ -17,7 +17,7 @@ public class ItemDetails {
     
     public ItemDetails(DatabaseConnector dbConn) {
     	
-    	dbConn = new DatabaseConnector();
+    	ItemDetails.dbConn = dbConn;
     }
         
         public static void DetailsItems(String chemicalName) {
@@ -95,7 +95,41 @@ public class ItemDetails {
 			}
 
 		}
-		}
+			static boolean searchItem() {
+				try (Connection connection = dbConn.connectToDatabase()) {
+					if (connection != null) {
+						// SQL query to search for an item by name
+						String query = "SELECT * FROM CurrentInventory WHERE ChemicalName LIKE ?";
 
+						// Prepare and execute the query
+						try (PreparedStatement statement = connection.prepareStatement(query)) {
+							Scanner scanner = new Scanner(System.in);
+							System.out.println("Enter the name of the item you want to search for: ");
+							String itemName = scanner.nextLine();
+							statement.setString(1, "%" + itemName + "%");
 
-
+							try (ResultSet resultSet = statement.executeQuery()) {
+								if (resultSet.next()) {
+									do {
+										displayDetails(resultSet);
+									} while (resultSet.next());
+									return true;
+								} else {
+									System.out.println("No matching items found");
+									return false;
+								}
+							}
+						}
+					} else {
+						System.out.println("Error: Database connection is null.");
+					}
+				} catch (SQLException e) {
+					LoggerStockX.logger.log(Level.SEVERE, "Error searching for item", e);
+				} finally {
+				}
+				return false;
+				
+			}
+			
+			
+			}
