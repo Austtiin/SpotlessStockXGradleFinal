@@ -18,19 +18,7 @@ import java.sql.SQLException;
 
 public class searchINV {
     private Map<String, Integer> inventory;
-    
-    
-    protected searchINV() {
-		this.inventory = new HashMap<>(); //Testing inventory for now until DB setup
-		
-		
-		inventory.put("GOLDEN KNIGHT", 20);
-        inventory.put("SURFACE ARMOUR", 6);
-        inventory.put("HELLCAT", 30);
-        inventory.put("BALSAM FROST BURST", 42);
-        
-	}
-    
+   
     
     protected void search(String searchQuery) {
         // Implement logic to search the inventory.

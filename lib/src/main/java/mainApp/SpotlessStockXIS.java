@@ -4,7 +4,7 @@
 
 package mainApp;
 
-import java.util.ArrayList;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -24,7 +24,6 @@ public class SpotlessStockXIS {
     private ItemDetails itemDetails;
     private ViewSites viewSites;
     private BOLReport exportBOL;
-    private List<SalesTransaction> salesTransactions;
 
     // Constructor to initialize the database connector and other objects
     public SpotlessStockXIS() {
@@ -33,7 +32,6 @@ public class SpotlessStockXIS {
         this.addItem = new AddItem(databaseConnector);
         this.scanner = new Scanner(System.in); // Use a single scanner
         this.deleteItem = new DeleteItem(databaseConnector);
-        this.salesTransactions = new ArrayList<>();
         this.viewSites = new ViewSites(databaseConnector);
         this.itemDetails = new ItemDetails(databaseConnector);
         this.exportBOL = new BOLReport();
@@ -386,30 +384,21 @@ public class SpotlessStockXIS {
         LoggerStockX.logger.info("==== Export BOL Report ====");
         System.out.println("Exporting BOL Report...");
         exportBOL.export();
-        
-        //TODO: Implement Export BOL Report
     }
 
     private void searchInventory() {
         LoggerStockX.logger.info("==== Search Inventory ====");
-        // TODO: Implement Search Inventory- Waiting for DB
-
-        System.out.println("Enter the keyword to search:");
-        String keyword = scanner.nextLine().trim();
-
-        //List<Item> searchResults = searchInventory(keyword);
-      
-    }
-
-    private void viewSalesTransactions() {
-        System.out.println("==== View Sales Transactions ====");
-        // TODO: Implement View Sales Transactions
-
-        System.out.println("This feature is under development. Check back later!");
-        // Example: List<SalesTransaction> salesTransactions = fetchSalesTransactions();
         
-        //Display our Sales Transactions
+        
+        try {
+            System.out.println("Enter the item name to search:");
+            String itemName = scanner.nextLine().trim();
+            ItemDetails.DetailsItems(itemName);
+            } catch (IllegalStateException | NoSuchElementException e) {
+                 LoggerStockX.logger.log(Level.SEVERE, "Error reading input: " + e.getMessage(), e);
+            }
+        
+
     }
 
-   
 }
