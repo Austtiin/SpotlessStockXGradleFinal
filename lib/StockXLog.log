@@ -20,3 +20,7 @@ Mar 15, 2024 8:25:42 PM mainApp.DatabaseConnector connectToDatabase
 INFO: DB Connection Started
 Mar 15, 2024 8:25:42 PM mainApp.SpotlessStockXIS inventoryManager
 INFO: SpotlessStockXIS Menu Accessed.
+Mar 15, 2024 8:26:35 PM mainApp.SpotlessStockXIS itemAdd
+INFO: ==== Add Stock Item ====
+Mar 15, 2024 8:26:40 PM mainApp.SpotlessStockXIS inventoryManager
+INFO: SpotlessStockXIS Menu Accessed.
